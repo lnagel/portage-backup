@@ -66,7 +66,8 @@ src_install() {
 		myconf="${myconf} --bin-path nmblookup=$(type -p nmblookup)"
 	fi
 
-	# For upgrading, we need to copy in the current config file
+	## For upgrading, we need to copy in the current config file
+	## Currently disabled since the configure.pl script is broken
 	#if [[ -f "/etc/BackupPC/config.pl" ]]; then
 	#	einfo "Feeding in the current config file /etc/BackupPC/config.pl"
 	#	einfo " as ${WORKDIR}/config.pl"
