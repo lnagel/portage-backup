@@ -106,8 +106,6 @@ src_install() {
 	diropts -m 755
 	keepdir /etc/BackupPC
 	fowners backuppc:backuppc /etc/BackupPC
-	keepdir /etc/BackupPC/pc
-	fowners backuppc:backuppc /etc/BackupPC/pc
 
 	newinitd "${S}"/init.d/gentoo-backuppc backuppc
 	newconfd "${S}"/init.d/gentoo-backuppc.conf backuppc
