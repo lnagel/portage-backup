@@ -8,7 +8,7 @@ inherit eutils webapp
 
 MY_P="BackupPC-${PV}"
 
-DESCRIPTION="backup system for desktops to a servers disk"
+DESCRIPTION="A high-performancee system for backing up computers to a server's disk."
 HOMEPAGE="http://backuppc.sourceforge.net"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
@@ -33,7 +33,6 @@ RDEPEND="${DEPEND}
 	rss? ( dev-perl/XML-RSS )
 	samba? ( net-fs/samba )"
 
-# we really should install into a fixed slot otherwise upgrades will fail due to file collisions.
 WEBAPP_MANUAL_SLOT="yes"
 SLOT="0"
 
@@ -67,7 +66,6 @@ src_install() {
 	fi
 
 	einfo ${MY_HTDOCSDIR}
-	dodir ${MY_HTDOCSDIR}/${PN}
 
 	./configure.pl \
 		--batch \
@@ -112,7 +110,6 @@ src_install() {
 	newinitd "${S}"/init.d/gentoo-backuppc backuppc
 	newconfd "${S}"/init.d/gentoo-backuppc.conf backuppc
 	
-
 	ebegin "Setting up an apache instance for backuppc"
 
 	cp "${FILESDIR}/httpd.conf" "${WORKDIR}/httpd.conf"
