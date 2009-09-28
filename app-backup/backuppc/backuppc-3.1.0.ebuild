@@ -44,7 +44,7 @@ fi
 
 S=${WORKDIR}/${MY_P}
 migratedata="false"
-DATADIR="/var/lib/BackupPC" #important: no trailing slash here!
+DATADIR="/var/lib/backuppc" #important: no trailing slash here!
 
 pkg_setup() {
 	enewgroup backuppc
@@ -156,22 +156,6 @@ src_install() {
 	
 	webapp_postinst_txt en "${FILESDIR}"/postinstall-en.txt || die "webapp_postinst_txt"
 
-	if [ $UPGRADE=="true" ]; then
-		ebegin "Trying to migrate datadir..."
-			if [ -e ${DATADIR} ] && [ ! -e /var/lib/backuppc ]; then
-				elog "Upgrading: seems like the datadir is already in the correct position."
-				i=0
-			elif [ -e ${DATADIR} ] && [ -e /var/lib/backuppc ]; then
-				ewarn "Upgrading: seems like you have both the old and the new datadir in your filesystem:"
-				ewarn "${DATADIR} and /var/lib/backuppc. Please make sure BackupPC finds its data in ${DATADIR}."
-				i=1
-			elif [ ! -e ${DATADIR} ] && [ -e /var/lib/backuppc ]; then
-				elog "Upgrading: will migrate /var/lib/backuppc to ${DATADIR} after installation"
-				migratedata="true"
-				i=0
-			fi
-		eend $i
-	fi
 	webapp_src_install || die "webapp_src_install"
 }
 
@@ -180,11 +164,6 @@ pkg_postinst() {
 	webapp_pkg_postinst
 	if [ $UPGRADE=="true" ]; then
 		ebegin "executing data migration..."
-		if [ $migratedata == "true" ]; then
-			rm -rf "${DATADIR}"
-			mv /var/lib/backuppc "${DATADIR}"
-			elog "sucessfully migrated old data to ${DATADIR}"
-		fi
 		oldifs=$IFS
 		IFS='
 '
