@@ -1,7 +1,7 @@
 The default username and password are both backuppc. Edit
-/etc/BackupPC/authUser to change these to your preferred values using the
+/etc/BackupPC/users.htpasswd to change these to your preferred values using the
 htpasswd2 utility, such as:
-# htpasswd2 -c /etc/BackupPC/authUser admin
+# htpasswd2 -c /etc/BackupPC/users.htpasswd admin
 
 This will prompt you for a new password and change the username to admin.
 \`man htpasswd' for more options.

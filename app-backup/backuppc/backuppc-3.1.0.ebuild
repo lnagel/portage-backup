@@ -134,7 +134,7 @@ src_install() {
 	cp "${FILESDIR}/httpd.conf" "${WORKDIR}/httpd.conf"
 	cd "$WORKDIR"
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
-	sed -i -e "s+AUTHFILE+/etc/BackupPC/authUser+g" "${WORKDIR}/httpd.conf"
+	sed -i -e "s+AUTHFILE+/etc/BackupPC/users.htpasswd+g" "${WORKDIR}/httpd.conf"
 	
 	
 	if [ -e /etc/init.d/apache2 ]; then
@@ -150,7 +150,7 @@ src_install() {
 
 	insopts -m 644
 	insinto /etc/BackupPC
-	doins "${FILESDIR}"/authUser
+	doins "${FILESDIR}"/users.htpasswd
 	doins "${WORKDIR}/httpd.conf"
 	eend $?
 	
@@ -183,7 +183,7 @@ pkg_postinst() {
 	fi
 	ebegin "Adjusting ownership of various things..."
 	chown -Rf backuppc:backuppc /etc/BackupPC
-	#chown -f  root:apache       /etc/BackupPC/authUser
+	#chown -f  root:apache       /etc/BackupPC/users.htpasswd
 	chown -Rf backuppc:backuppc /var/log/BackupPC
 	chown -Rf backuppc:backuppc ${DATADIR}
 	chown -Rf backuppc:backuppc "${MY_HTDOCSDIR}"
