@@ -160,8 +160,6 @@ src_install() {
 	
 	webapp_postinst_txt en "${FILESDIR}"/postinstall-en.txt || die "webapp_postinst_txt"
 
-	elog "Created admin user $adminuser with password $adminpass"
-
 	webapp_src_install || die "webapp_src_install"
 }
 
@@ -198,9 +196,15 @@ pkg_postinst() {
 	rm -rf "${G_HTDOCSDIR}/${PN}"
 	eend $?
 
+	elog " ******************* "
+	elog ""
 	elog "Please read the documentation"
 	elog "you can start the server by typing:"
 	elog "/etc/init.d/backuppc start && /etc/init.d/apache2-backuppc start"
 	elog "afterwards you will be able to reach the web-frontend under the following address:"
 	elog "https://your-servers-ip-address/BackupPC_Admin"
+	elog ""
+	elog "Created admin user $adminuser with password $adminpass"
+	elog ""
+	elog " ******************* "
 }
