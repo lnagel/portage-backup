@@ -194,7 +194,7 @@ pkg_postinst() {
 	rm -rf "${G_HTDOCSDIR}/${PN}"
 	eend $?
 
-	elog " ******************* "
+	elog "=============================================================="
 	elog ""
 	elog "Please read the documentation"
 	elog "you can start the server by typing:"
@@ -204,5 +204,5 @@ pkg_postinst() {
 	elog ""
 	elog "Created admin user $adminuser with password $adminpass"
 	elog ""
-	elog " ******************* "
+	elog "=============================================================="
 }
