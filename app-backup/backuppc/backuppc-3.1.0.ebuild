@@ -122,7 +122,7 @@ src_install() {
 
 	diropts -m 750
 	keepdir /var/log/BackupPC
-	keepdir /var/lib/BackupPC
+	keepdir ${DATADIR}
 
 	diropts -m 755
 	keepdir /etc/BackupPC
