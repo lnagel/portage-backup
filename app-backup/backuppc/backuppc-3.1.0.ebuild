@@ -68,10 +68,10 @@ src_install() {
 
 	# For upgrading, we need to copy in the current config file
 	if [[ -f "/etc/BackupPC/config.pl" ]]; then
-		einfo "Feeding in the current config file /etc/BackupPC/config.pl"
-		einfo " as ${WORKDIR}/config.pl"
-		cp "/etc/BackupPC/config.pl" "${WORKDIR}/config.pl"
-		myconf="${myconf} --config-path ${WORKDIR}/config.pl"
+		#einfo "Feeding in the current config file /etc/BackupPC/config.pl"
+		#einfo " as ${WORKDIR}/config.pl"
+		#cp "/etc/BackupPC/config.pl" "${WORKDIR}/config.pl"
+		myconf="${myconf} --config-path ''"
 	fi
 
 	einfo ${MY_HTDOCSDIR}
