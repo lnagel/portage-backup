@@ -59,10 +59,10 @@ src_install() {
 	webapp_src_preinst
 
 	# For upgrading, we need to copy in the current config file
-	if [[ -f "/etc/BackupPC/config.pl" ]]; then
-		dodir /etc/BackupPC
-		cp "/etc/BackupPC/config.pl" "${D}/etc/BackupPC/config.pl"
-	fi
+	#if [[ -f "/etc/BackupPC/config.pl" ]]; then
+	#	dodir /etc/BackupPC
+	#	cp "/etc/BackupPC/config.pl" "${D}/etc/BackupPC/config.pl"
+	#fi
 
 	local myconf
 	myconf=""
@@ -74,8 +74,6 @@ src_install() {
 	einfo ${MY_HTDOCSDIR}
 
 	./configure.pl \
-		--batch \
-		--config-path "${D}/etc/BackupPC/config.pl" \
 		--bin-path perl=$(type -p perl) \
 		--bin-path tar=$(type -p tar) \
 		--bin-path rsync=$(type -p rsync) \
