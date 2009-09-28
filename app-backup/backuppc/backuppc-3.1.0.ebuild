@@ -105,8 +105,9 @@ src_install() {
 
 	diropts -m 755
 	keepdir /etc/BackupPC
-	keepdir /etc/BackupPC/pc
 	fowners backuppc:backuppc /etc/BackupPC
+	keepdir /etc/BackupPC/pc
+	fowners backuppc:backuppc /etc/BackupPC/pc
 
 	newinitd "${S}"/init.d/gentoo-backuppc backuppc
 	newconfd "${S}"/init.d/gentoo-backuppc.conf backuppc
@@ -146,9 +147,9 @@ src_install() {
 }
 
 pkg_postinst() {
-	webapp_pkg_postinst
+	# This is disabled since BackupPC doesn't need it
+	# webapp_pkg_postinst 
 
-	elog "=============================================================="
 	elog ""
 	elog "Please read the documentation"
 	elog "you can start the server by typing:"
@@ -161,6 +162,4 @@ pkg_postinst() {
 		elog "Created admin user $adminuser with password $adminpass"
 		elog ""
 	fi
-
-	elog "=============================================================="
 }
