@@ -157,8 +157,6 @@ src_install() {
 	doins "${WORKDIR}"/users.htpasswd
 	doins "${WORKDIR}/httpd.conf"
 	eend $?
-	
-	webapp_postinst_txt en "${FILESDIR}"/postinstall-en.txt || die "webapp_postinst_txt"
 
 	webapp_src_install || die "webapp_src_install"
 }
