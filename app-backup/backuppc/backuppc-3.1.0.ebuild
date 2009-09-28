@@ -16,6 +16,7 @@ KEYWORDS="~amd64 x86"
 IUSE="doc rsync samba"
 
 DEPEND="dev-lang/perl
+    app-admin/apache-tools
     app-admin/makepasswd"
 RDEPEND="${DEPEND}
 	perl-core/IO-Compress
