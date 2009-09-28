@@ -75,6 +75,7 @@ src_install() {
 
 	./configure.pl \
 		--batch \
+		--config-path "${D}/etc/BackupPC/config.pl" \
 		--bin-path perl=$(type -p perl) \
 		--bin-path tar=$(type -p tar) \
 		--bin-path rsync=$(type -p rsync) \
