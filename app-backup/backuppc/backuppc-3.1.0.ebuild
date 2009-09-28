@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="1"
+EAPI="2"
 
 inherit eutils webapp
 
@@ -28,7 +28,7 @@ RDEPEND="${DEPEND}
 	app-arch/gzip
 	app-arch/bzip2
 	virtual/mta
-	www-servers/apache
+	www-servers/apache[suexec]
 	rsync? ( >=dev-perl/File-RsyncP-0.68 )
 	rss? ( dev-perl/XML-RSS )
 	samba? ( net-fs/samba )"
