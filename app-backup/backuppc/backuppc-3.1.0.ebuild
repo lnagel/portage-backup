@@ -38,13 +38,12 @@ WEBAPP_MANUAL_SLOT="yes"
 SLOT="0"
 
 S=${WORKDIR}/${MY_P}
-migratedata="false"
-DATADIR="/var/lib/backuppc" #important: no trailing slash here!
+DATADIR="/var/lib/backuppc"
 
 pkg_setup() {
+	webapp_pkg_setup
 	enewgroup backuppc
 	enewuser backuppc -1 -1 /dev/null backuppc
-	webapp_pkg_setup
 }
 
 src_unpack() {
@@ -58,6 +57,8 @@ src_test() {
 }
 
 src_install() {
+	webapp_src_preinst
+
 	local myconf
 	myconf=""
 	if use samba ; then
@@ -65,31 +66,6 @@ src_install() {
 		myconf="${myconf} --bin-path nmblookup=$(type -p nmblookup)"
 	fi
 
-	oldslot=$( equery -C -N -q list -i backuppc )
-	oldslot=${oldslot##*(}
-	oldslot=${oldslot%%)*}
-	if [ "X$oldslot" != "X" ]; then
-		UPGRADE="true"
-	fi
-
-	if [ $UPGRADE=="true" ]; then
-		oldconfdir=$( find /etc/ -name config.pl -ipath "*backuppc*" )
-		if [ "X$oldconfdir" != "X" ]; then
-			#stop the server, just in case
-			/etc/init.d/backuppc stop
-			oldconfdir="${oldconfdir%/*}"
-			#now make the old config files available for the new server
-			insopts -m 644
-			insinto /etc/BackupPC
-			doins "${oldconfdir}/config.pl"
-			doins "${oldconfdir}/hosts"
-			ewarn "This is an upgrade. The config dir is now /etc/BackupPC."
-			ewarn "If you are upgrading from a version prior to 3.x, you will have to carefully"
-			ewarn "Check the new config file and then delete /etc/backuppc"
-		fi
-	fi
-
-	webapp_src_preinst
 	einfo ${MY_HTDOCSDIR}
 	dodir ${MY_HTDOCSDIR}/${PN}
 
@@ -125,15 +101,20 @@ src_install() {
 
 	diropts -m 750
 	keepdir /var/log/BackupPC
+	fowners backuppc:backuppc /var/log/BackupPC
 	keepdir ${DATADIR}
+	fowners backuppc:backuppc ${DATADIR}
 
 	diropts -m 755
 	keepdir /etc/BackupPC
+	fowners backuppc:backuppc /etc/BackupPC
 
 	newinitd "${S}"/init.d/gentoo-backuppc backuppc
 	newconfd "${S}"/init.d/gentoo-backuppc.conf backuppc
 	
-	ebegin "setting up an apache instance for backuppc"
+
+	ebegin "Setting up an apache instance for backuppc"
+
 	cp "${FILESDIR}/httpd.conf" "${WORKDIR}/httpd.conf"
 	cd "$WORKDIR"
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
@@ -167,37 +148,7 @@ src_install() {
 }
 
 pkg_postinst() {
-
 	webapp_pkg_postinst
-	if [ $UPGRADE=="true" ]; then
-		ebegin "executing data migration..."
-		oldifs=$IFS
-		IFS='
-'
-		for oldhostconfig in $( find "${DATADIR}/pc" -maxdepth 2 -name config.pl ); do
-			host=${oldhostconfig%/config.pl}; host=${host##*/}
-			newhostconfig="/etc/BackupPC/pc/${host}.pl"
-			if [ ! -e $newhostconfig ]; then
-				mv "$oldhostconfig" "$newhostconfig"
-				elog "Sucessfully moved config for ${host}"
-			else
-				elog "Config files for ${host} exist in both ${oldhostconfig} and ${newhostconfig}."
-				elog "Not migrating configs for ${host}"
-			fi
-		done
-		IFS=$oldifs
-		eend $?
-	fi
-	ebegin "Adjusting ownership of various things..."
-	chown -Rf backuppc:backuppc /etc/BackupPC
-	#chown -f  root:apache       /etc/BackupPC/users.htpasswd
-	chown -Rf backuppc:backuppc /var/log/BackupPC
-	chown -Rf backuppc:backuppc ${DATADIR}
-	chown -Rf backuppc:backuppc "${MY_HTDOCSDIR}"
-	eend $?
-	ebegin "making sure to not interfere with the standard apache installation"
-	rm -rf "${G_HTDOCSDIR}/${PN}"
-	eend $?
 
 	elog "=============================================================="
 	elog ""
@@ -212,5 +163,6 @@ pkg_postinst() {
 		elog "Created admin user $adminuser with password $adminpass"
 		elog ""
 	fi
+
 	elog "=============================================================="
 }
