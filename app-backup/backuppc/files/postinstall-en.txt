@@ -1,0 +1,22 @@
+The default username and password are both backuppc. Edit
+/etc/BackupPC/authUser to change these to your preferred values using the
+htpasswd2 utility, such as:
+# htpasswd2 -c /etc/BackupPC/authUser admin
+
+This will prompt you for a new password and change the username to admin.
+\`man htpasswd' for more options.
+
+Please make sure to edit /etc/BackupPC/config.pl to suit your needs. If you 
+change the username or want the backuppc user to have admin rights in the web 
+interface be sure to change \$Conf{CgiAdminUsers} to the correct value.
+
+To add backuppc to your default startup scripts run:
+# rc-update add backuppc default
+# rc-update add apache2-backuppc default
+
+Then start it with:
+# /etc/init.d/backuppc start
+# /etc/init.d/apache2-backuppc start
+
+Navigate using your webbrowser to http://localhost:28000/BackupPC_Admin 
+for the web interface.
