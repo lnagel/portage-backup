@@ -139,7 +139,7 @@ src_install() {
 
 	adminuser="backuppc"
 	adminpass=$( makepasswd --chars=12 )
-	htpasswd -c "${WORKDIR}"/users.htpasswd $adminuser $adminpass
+	htpasswd -bc "${WORKDIR}"/users.htpasswd $adminuser $adminpass
 	
 	if [ -e /etc/init.d/apache2 ]; then
 		newconfd "${FILESDIR}/apache2-backuppc.conf" apache2-backuppc
