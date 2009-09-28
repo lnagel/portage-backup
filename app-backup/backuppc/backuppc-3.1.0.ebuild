@@ -49,6 +49,11 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 	sed -i -e "1s_/bin/perl_/usr/bin/perl_"  configure.pl
+
+	# For upgrading, we need to copy in the current config file
+	if [[ -f "/etc/BackupPC/config.pl" ]]; then
+		cp "/etc/BackupPC/config.pl" "${D}/etc/BackupPC/config.pl"
+	fi
 }
 
 src_test() {
