@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="1"
+
 inherit eutils webapp
 
 MY_P="BackupPC-${PV}"
@@ -13,7 +15,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 x86"
 
-IUSE="doc rsync samba"
+IUSE="doc +rsync samba"
 
 DEPEND="dev-lang/perl
     app-admin/apache-tools
