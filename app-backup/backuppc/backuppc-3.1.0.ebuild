@@ -139,16 +139,15 @@ src_install() {
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+AUTHFILE+/etc/BackupPC/users.htpasswd+g" "${WORKDIR}/httpd.conf"
 
-	adminuser="backuppc"
-	adminpass=$( makepasswd --chars=12 )
-	htpasswd -bc "${WORKDIR}"/users.htpasswd $adminuser $adminpass
+	if [[ ! -f "${ROOT}etc/BackupPC/users.htpasswd" ]]; then
+		adminuser="backuppc"
+		adminpass=$( makepasswd --chars=12 )
+		htpasswd -bc "${WORKDIR}/users.htpasswd" $adminuser $adminpass
+	fi
 	
 	if [ -e /etc/init.d/apache2 ]; then
 		newconfd "${FILESDIR}/apache2-backuppc.conf" apache2-backuppc
 		newinitd /etc/init.d/apache2 apache2-backuppc
-	elif [ -e /etc/init.d/apache ]; then #not sure if this works, could someone please test?
-		newconfd "${FILESDIR}/apache2-backuppc.conf" apache-backuppc
-		newinitd /etc/init.d/apache apache-backuppc
 	else
 		newconfd "${FILESDIR}/apache2-backuppc.conf" apache2-backuppc
 		newinitd "${FILESDIR}/apache2-backuppc.init" apache2-backuppc
@@ -156,7 +155,11 @@ src_install() {
 
 	insopts -m 644
 	insinto /etc/BackupPC
-	doins "${WORKDIR}"/users.htpasswd
+
+	if [[ -f "${WORKDIR}/users.htpasswd" ]]; then
+		doins "${WORKDIR}/users.htpasswd"
+	fi
+
 	doins "${WORKDIR}/httpd.conf"
 	eend $?
 
@@ -204,7 +207,10 @@ pkg_postinst() {
 	elog "afterwards you will be able to reach the web-frontend under the following address:"
 	elog "https://your-servers-ip-address/BackupPC_Admin"
 	elog ""
-	elog "Created admin user $adminuser with password $adminpass"
-	elog ""
+
+	if [[ -n "$adminpass" ]]; then
+		elog "Created admin user $adminuser with password $adminpass"
+		elog ""
+	fi
 	elog "=============================================================="
 }
