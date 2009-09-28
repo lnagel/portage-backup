@@ -15,15 +15,15 @@ KEYWORDS="~amd64 x86"
 
 IUSE="doc rsync samba"
 
-DEPEND="dev-lang/perl"
+DEPEND="dev-lang/perl
+    app-admin/makepasswd"
 RDEPEND="${DEPEND}
-	 perl-core/IO-Compress
+	perl-core/IO-Compress
 	dev-perl/Archive-Zip
 	>=app-arch/tar-1.13.20
 	app-arch/par2cmdline
 	app-arch/gzip
 	app-arch/bzip2
-	app-admin/makepasswd
 	virtual/mta
 	www-servers/apache
 	rsync? ( >=dev-perl/File-RsyncP-0.68 )
