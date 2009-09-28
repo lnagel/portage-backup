@@ -35,15 +35,6 @@ RDEPEND="${DEPEND}
 WEBAPP_MANUAL_SLOT="yes"
 SLOT="0"
 
-# detect if a previous installation exists and install into that slot to avoid file collisions.
-oldslot=$( equery -C -N -q list -i backuppc )
-oldslot=${oldslot##*(}
-oldslot=${oldslot%%)*}
-if [ "X$oldslot" != "X" ]; then
-	SLOT="$oldslot"
-	UPGRADE="true"
-fi
-
 S=${WORKDIR}/${MY_P}
 migratedata="false"
 DATADIR="/var/lib/backuppc" #important: no trailing slash here!
@@ -71,6 +62,14 @@ src_install() {
 		myconf="--bin-path smbclient=$(type -p smbclient)"
 		myconf="${myconf} --bin-path nmblookup=$(type -p nmblookup)"
 	fi
+
+	oldslot=$( equery -C -N -q list -i backuppc )
+	oldslot=${oldslot##*(}
+	oldslot=${oldslot%%)*}
+	if [ "X$oldslot" != "X" ]; then
+		UPGRADE="true"
+	fi
+
 	if [ $UPGRADE=="true" ]; then
 		oldconfdir=$( find /etc/ -name config.pl -ipath "*backuppc*" )
 		if [ "X$oldconfdir" != "X" ]; then
