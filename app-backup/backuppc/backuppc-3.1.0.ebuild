@@ -97,32 +97,29 @@ src_install() {
 
 	doman backuppc.8
 
-	diropts -m 750
-	keepdir /var/log/BackupPC
-	fowners backuppc:backuppc /var/log/BackupPC
-	keepdir ${DATADIR}
-	fowners backuppc:backuppc ${DATADIR}
-
-	diropts -m 755
 	keepdir /etc/BackupPC
-	fowners backuppc:backuppc /etc/BackupPC
+	keepdir ${DATADIR}/{trash,pool,pc,cpool}
+	keepdir /var/log/BackupPC
 
 	newinitd "${S}"/init.d/gentoo-backuppc backuppc
 	newconfd "${S}"/init.d/gentoo-backuppc.conf backuppc
 	
 	ebegin "Setting up an apache instance for backuppc"
 
+	# Patch together a httpd.conf
 	cp "${FILESDIR}/httpd.conf" "${WORKDIR}/httpd.conf"
 	cd "$WORKDIR"
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+AUTHFILE+/etc/BackupPC/users.htpasswd+g" "${WORKDIR}/httpd.conf"
 
+	# Generate a new password if there's no auth file
 	if [[ ! -f "${ROOT}etc/BackupPC/users.htpasswd" ]]; then
 		adminuser="backuppc"
 		adminpass=$( makepasswd --chars=12 )
 		htpasswd -bc "${WORKDIR}/users.htpasswd" $adminuser $adminpass
 	fi
-	
+
+	# Install conf.d/init.d files
 	if [ -e /etc/init.d/apache2 ]; then
 		newconfd "${FILESDIR}/apache2-backuppc.conf" apache2-backuppc
 		newinitd /etc/init.d/apache2 apache2-backuppc
@@ -131,6 +128,7 @@ src_install() {
 		newinitd "${FILESDIR}/apache2-backuppc.init" apache2-backuppc
 	fi
 
+	# Install config files
 	insopts -m 644
 	insinto /etc/BackupPC
 
@@ -142,6 +140,16 @@ src_install() {
 	eend $?
 
 	webapp_src_install || die "webapp_src_install"
+
+	#cd ${D}/etc/BackupPC
+	#ebegin "Patching config.pl for sane defaults"
+	#	patch -p0 < ${WORKDIR}/gentoo/postpatch/config.pl.diff
+	#eend $?
+
+	# Make sure that the ownership is correct
+	chown -R backuppc:backuppc "${D}/etc/BackupPC"
+	chown -R backuppc:backuppc "${D}${DATADIR}"
+	chown -R backuppc:backuppc "${D}/var/log/BackupPC"
 }
 
 pkg_postinst() {
