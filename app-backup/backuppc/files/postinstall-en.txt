@@ -18,5 +18,5 @@ Then start it with:
 # /etc/init.d/backuppc start
 # /etc/init.d/apache2-backuppc start
 
-Navigate using your webbrowser to http://localhost:28000/BackupPC_Admin 
+Navigate using your webbrowser to http://localhost/BackupPC_Admin 
 for the web interface.

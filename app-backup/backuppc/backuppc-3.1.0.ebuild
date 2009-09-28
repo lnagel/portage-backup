@@ -196,5 +196,5 @@ pkg_postinst() {
 	elog "you can start the server by typing:"
 	elog "/etc/init.d/backuppc start && /etc/init.d/apache2-backuppc start"
 	elog "afterwards you will be able to reach the web-frontend under the following address:"
-	elog "https://your-servers-ip-address:28000/BackupPC_Admin"
+	elog "https://your-servers-ip-address/BackupPC_Admin"
 }
