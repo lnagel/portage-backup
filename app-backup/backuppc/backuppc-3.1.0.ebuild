@@ -88,6 +88,7 @@ src_install() {
 		--bin-path hostname=$(type -p hostname) \
 		--bin-path gzip=$(type -p gzip) \
 		--bin-path bzip2=$(type -p bzip2) \
+		--config-dir /etc/BackupPC \
 		--install-dir /usr \
 		--data-dir ${DATADIR} \
 		--hostname $(hostname) \
