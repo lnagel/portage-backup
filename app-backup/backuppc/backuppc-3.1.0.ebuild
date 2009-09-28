@@ -23,6 +23,7 @@ RDEPEND="${DEPEND}
 	app-arch/par2cmdline
 	app-arch/gzip
 	app-arch/bzip2
+	app-admin/makepasswd
 	virtual/mta
 	www-servers/apache
 	rsync? ( >=dev-perl/File-RsyncP-0.68 )
@@ -135,7 +136,10 @@ src_install() {
 	cd "$WORKDIR"
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+AUTHFILE+/etc/BackupPC/users.htpasswd+g" "${WORKDIR}/httpd.conf"
-	
+
+	adminuser="backuppc"
+	adminpass=$( makepasswd --chars=12 )
+	htpasswd -c "${WORKDIR}"/users.htpasswd $adminuser $adminpass
 	
 	if [ -e /etc/init.d/apache2 ]; then
 		newconfd "${FILESDIR}/apache2-backuppc.conf" apache2-backuppc
@@ -150,11 +154,13 @@ src_install() {
 
 	insopts -m 644
 	insinto /etc/BackupPC
-	doins "${FILESDIR}"/users.htpasswd
+	doins "${WORKDIR}"/users.htpasswd
 	doins "${WORKDIR}/httpd.conf"
 	eend $?
 	
 	webapp_postinst_txt en "${FILESDIR}"/postinstall-en.txt || die "webapp_postinst_txt"
+
+	elog "Created admin user $adminuser with password $adminpass"
 
 	webapp_src_install || die "webapp_src_install"
 }
