@@ -108,7 +108,6 @@ src_install() {
 
 	# Patch together a httpd.conf
 	cp "${FILESDIR}/httpd.conf" "${WORKDIR}/httpd.conf"
-	cd "$WORKDIR"
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+AUTHFILE+/etc/BackupPC/users.htpasswd+g" "${WORKDIR}/httpd.conf"
 
@@ -129,14 +128,14 @@ src_install() {
 	fi
 
 	# Install config files
-	insopts -m 644
+	insopts -m 0644
 	insinto /etc/BackupPC
+	doins "${WORKDIR}/httpd.conf"
 
 	if [[ -f "${WORKDIR}/users.htpasswd" ]]; then
 		doins "${WORKDIR}/users.htpasswd"
 	fi
 
-	doins "${WORKDIR}/httpd.conf"
 	eend $?
 
 	webapp_src_install || die "webapp_src_install"
