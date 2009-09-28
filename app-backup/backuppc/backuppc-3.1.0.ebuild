@@ -60,6 +60,7 @@ src_install() {
 
 	# For upgrading, we need to copy in the current config file
 	if [[ -f "/etc/BackupPC/config.pl" ]]; then
+		dodir /etc/BackupPC
 		cp "/etc/BackupPC/config.pl" "${D}/etc/BackupPC/config.pl"
 	fi
 
