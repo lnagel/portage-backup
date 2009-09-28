@@ -48,7 +48,8 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	sed -i -e "1s_/bin/perl_/usr/bin/perl_"  configure.pl
+	#sed -i -e "1s_/bin/perl_/usr/bin/perl_"  configure.pl
+	patch -p0 < "${FILESDIR}/fix-configure.pl.patch"
 }
 
 src_test() {
