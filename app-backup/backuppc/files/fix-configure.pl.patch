@@ -1,5 +1,5 @@
 --- configure.pl.orig	2009-09-29 01:52:58.000000000 +0300
-+++ configure.pl	2009-09-29 02:24:38.000000000 +0300
++++ configure.pl	2009-09-29 02:29:12.000000000 +0300
 @@ -1,4 +1,4 @@
 -#!/bin/perl
 +#!/usr/bin/perl
@@ -15,13 +15,14 @@
  while ( 1 ) {
      if ( $ConfigFileOK && -f "/etc/BackupPC/config.pl" ) {
          $ConfigPath = "/etc/BackupPC/config.pl";
-@@ -212,7 +212,8 @@
+@@ -212,7 +212,9 @@
          $bpc->{LogDir} = $Conf{LogDir}  = "$Conf{TopDir}/log"
                      if ( $Conf{LogDir} eq '' );
      }
 -    $bpc->{ConfDir} = $Conf{ConfDir} = $confDir;
 +    # Disable this as it's not really neccessary for this ebuild
 +    # $bpc->{ConfDir} = $Conf{ConfDir} = $confDir;
++    $bpc->{ConfDir} =  $confDir;
      my $err = $bpc->ServerConnect($Conf{ServerHost}, $Conf{ServerPort}, 1);
      if ( $err eq "" ) {
          print <<EOF;
