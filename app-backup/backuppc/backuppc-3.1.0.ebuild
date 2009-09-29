@@ -38,8 +38,6 @@ RDEPEND="${DEPEND}
 WEBAPP_MANUAL_SLOT="yes"
 SLOT="0"
 
-S=${WORKDIR}/${MY_P}
-
 CONFDIR="/etc/BackupPC"
 DATADIR="/var/lib/backuppc"
 LOGDIR="/var/log/BackupPC"
