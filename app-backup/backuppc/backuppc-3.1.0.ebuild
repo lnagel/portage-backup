@@ -93,6 +93,8 @@ src_install() {
 		--fhs \
 		${myconf} || die "failed the configure.pl script"
 
+	ebegin "Installing documentation"
+
 	pod2man \
 		--section=8 \
 		--center="BackupPC manual" \
@@ -100,6 +102,13 @@ src_install() {
 
 	doman backuppc.8
 
+	# Place the documentation in the correct location
+	dodoc "${D}/usr/doc/BackupPC.html"
+	rm -rf "${D}/usr/doc"
+
+	eend 0
+
+	# Setup directories
 	dodir ${CONFDIR}/pc
 
 	keepdir ${CONFDIR}
