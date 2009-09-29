@@ -28,6 +28,7 @@ RDEPEND="${DEPEND}
 	app-arch/gzip
 	app-arch/bzip2
 	virtual/mta
+	www-apache/mod_perl
 	www-servers/apache[suexec]
 	rsync? ( >=dev-perl/File-RsyncP-0.68 )
 	rss? ( dev-perl/XML-RSS )
