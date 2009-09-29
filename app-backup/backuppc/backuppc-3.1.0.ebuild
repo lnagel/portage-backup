@@ -154,10 +154,10 @@ src_install() {
 
 	webapp_src_install || die "webapp_src_install"
 
-	#cd ${D}${CONFDIR}
-	#ebegin "Patching config.pl for sane defaults"
-	#	patch -p0 < ${WORKDIR}/gentoo/postpatch/config.pl.diff
-	#eend $?
+	ebegin "Patching config.pl for sane defaults"
+		cd ${D}${CONFDIR}
+		patch -p0 < "${FILESDIR}/config.pl-defaults.patch"
+	eend $?
 
 	# Make sure that the ownership is correct
 	chown -R backuppc:backuppc "${D}${CONFDIR}"
