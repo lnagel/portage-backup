@@ -148,13 +148,6 @@ src_install() {
 		sed -i -e "s+cgi_module+cgid_module+g" "${WORKDIR}/httpd.conf"
 	fi
 
-	# Generate a new password if there's no auth file
-	if [[ ! -f "${CONFDIR}/users.htpasswd" ]]; then
-		adminuser="backuppc"
-		adminpass=$( makepasswd --chars=12 )
-		htpasswd -bc "${WORKDIR}/users.htpasswd" $adminuser $adminpass
-	fi
-
 	# Install conf.d/init.d files
 	if [ -e /etc/init.d/apache2 ]; then
 		newconfd "${WORKDIR}/apache2-backuppc.conf" apache2-backuppc
@@ -204,8 +197,15 @@ pkg_postinst() {
 	elog "# rc-update add apache2-backuppc default"
 	elog ""
 
-	if [[ -n "$adminpass" ]]; then
+	# Generate a new password if there's no auth file
+	if [[ ! -f "${CONFDIR}/users.htpasswd" ]]; then
+		adminuser="backuppc"
+		adminpass=$( makepasswd --chars=12 )
+		htpasswd -bc "${CONFDIR}/users.htpasswd" $adminuser $adminpass
+
 		elog "Created admin user $adminuser with password $adminpass"
+		elog "To add new users, run: "
+		elog "# htpasswd ${CONFDIR}/users.htpasswd newUser"
 		elog ""
 	fi
 }
