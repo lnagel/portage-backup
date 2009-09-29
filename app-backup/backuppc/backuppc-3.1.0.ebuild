@@ -69,17 +69,6 @@ src_install() {
 		myconf="${myconf} --bin-path nmblookup=$(type -p nmblookup)"
 	fi
 
-	## For upgrading, we need to copy in the current config file
-	## Currently disabled since the configure.pl script is broken
-	#if [[ -f "${CONFDIR}/config.pl" ]]; then
-	#	einfo "Feeding in the current config file ${CONFDIR}/config.pl"
-	#	einfo " as ${WORKDIR}/config.pl"
-	#	cp "${CONFDIR}/config.pl" "${WORKDIR}/config.pl"
-	#	myconf="${myconf} --config-path ${WORKDIR}/config.pl"
-	#fi
-
-	einfo ${MY_HTDOCSDIR}
-
 	./configure.pl \
 		--batch \
 		--bin-path perl=$(type -p perl) \
@@ -169,11 +158,6 @@ src_install() {
 	eend $?
 
 	webapp_src_install || die "webapp_src_install"
-
-	#ebegin "Patching config.pl for sane defaults"
-	#	cd ${D}${CONFDIR}
-	#	patch -p0 < "${FILESDIR}/config.pl-defaults.patch"
-	#eend $?
 
 	# Make sure that the ownership is correct
 	chown -R backuppc:backuppc "${D}${CONFDIR}"
