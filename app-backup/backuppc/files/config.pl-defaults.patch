@@ -1,6 +1,22 @@
 --- conf/config.pl.orig	2009-09-29 12:27:00.000000000 +0300
-+++ conf/config.pl	2009-09-29 12:29:18.000000000 +0300
-@@ -1920,7 +1920,7 @@
++++ conf/config.pl	2009-09-29 22:15:24.000000000 +0300
+@@ -1270,6 +1270,7 @@
+             '--times',
+             '--block-size=2048',
+             '--recursive',
++            '--specials',
+ 
+ 	    #
+ 	    # Rsync >= 2.6.3 supports the --checksum-seed option
+@@ -1309,6 +1310,7 @@
+ 	    '--relative',
+ 	    '--ignore-times',
+ 	    '--recursive',
++	    '--specials',
+ 
+ 	    #
+ 	    # Rsync >= 2.6.3 supports the --checksum-seed option
+@@ -1920,7 +1922,7 @@
  #    --> administrative users are only craig and celia'.
  #
  $Conf{CgiAdminUserGroup} = '';
