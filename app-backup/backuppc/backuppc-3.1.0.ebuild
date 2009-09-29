@@ -179,6 +179,10 @@ pkg_postinst() {
 	elog "afterwards you will be able to reach the web-frontend under the following address:"
 	elog "https://your-servers-ip-address/BackupPC_Admin"
 	elog ""
+	elog "You also might want to add these scripts to your default runlevel:"
+	elog "# rc-update add backuppc default"
+	elog "# rc-update add apache2-backuppc default"
+	elog ""
 
 	if [[ -n "$adminpass" ]]; then
 		elog "Created admin user $adminuser with password $adminpass"
