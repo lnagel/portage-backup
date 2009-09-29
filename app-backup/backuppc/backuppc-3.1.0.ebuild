@@ -15,11 +15,11 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="doc +rsync samba"
+IUSE="doc samba"
 
 DEPEND="dev-lang/perl
-    app-admin/apache-tools
-    app-admin/makepasswd"
+	app-admin/apache-tools
+	app-admin/makepasswd"
 RDEPEND="${DEPEND}
 	perl-core/IO-Compress
 	dev-perl/Archive-Zip
@@ -30,7 +30,8 @@ RDEPEND="${DEPEND}
 	virtual/mta
 	www-apache/mod_perl
 	www-servers/apache[suexec]
-	rsync? ( >=dev-perl/File-RsyncP-0.68 )
+	net-misc/rsync
+	>=dev-perl/File-RsyncP-0.68
 	rss? ( dev-perl/XML-RSS )
 	samba? ( net-fs/samba )"
 
@@ -52,6 +53,9 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
+}
+
+src_prepare() {
 	epatch "${FILESDIR}/fix-configure.pl.patch"
 	epatch "${FILESDIR}/config.pl-defaults.patch"
 }
@@ -134,7 +138,7 @@ src_install() {
 	# Check if the Apache ServerRoot is real.
 	# This is sometimes broken on older amd64 systems.
 	# In this case we just patch our config file appropriately.
-	if [[ ! -d "/usr/lib/apache2" ]]; then 
+	if [[ ! -d "/usr/lib/apache2" ]]; then
 		if [[ -d "/usr/lib64/apache2" ]]; then
 			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/httpd.conf"
 			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/apache2-backuppc.conf"

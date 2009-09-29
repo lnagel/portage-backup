@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>app-backup</herd>
+	<maintainer>
+		<email>lenno@nagel.ee</email>
+		<name>Lenno Nagel</name>
+	</maintainer>
+	<longdescription lang="en">
+		BackupPC is a high-performance, enterprise-grade system for backing up
+		Linux, WinXX and MacOSX PCs and laptops to a server's disk. BackupPC is
+		highly configurable and easy to install and maintain.
+	</longdescription>
+</pkgmetadata>
+
