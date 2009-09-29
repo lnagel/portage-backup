@@ -133,9 +133,8 @@ src_install() {
 	# In this case we just patch our config file appropriately.
 	if [[ ! -d "/usr/lib/apache2" ]]; then 
 		if [[ -d "/usr/lib64/apache2" ]]; then
-			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" \
-				"${WORKDIR}/httpd.conf" \
-				"${WORKDIR}/apache2-backuppc.conf"
+			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/httpd.conf"
+			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/apache2-backuppc.conf"
 		fi
 	fi
 
