@@ -1,5 +1,5 @@
 --- configure.pl.orig	2009-09-29 01:52:58.000000000 +0300
-+++ configure.pl	2009-09-29 02:46:34.000000000 +0300
++++ configure.pl	2009-09-29 20:41:18.000000000 +0300
 @@ -1,4 +1,4 @@
 -#!/bin/perl
 +#!/usr/bin/perl
@@ -25,3 +25,12 @@
      my $err = $bpc->ServerConnect($Conf{ServerHost}, $Conf{ServerPort}, 1);
      if ( $err eq "" ) {
          print <<EOF;
+@@ -718,7 +719,7 @@
+     if ( $Conf{CgiDir} =~ m{cgi-bin(/.*)} ) {
+ 	$Conf{CgiURL} = "'http://$Conf{ServerHost}/cgi-bin$1/BackupPC_Admin'";
+     } else {
+-	$Conf{CgiURL} = "'http://$Conf{ServerHost}/cgi-bin/BackupPC_Admin'";
++	$Conf{CgiURL} = "'http://$Conf{ServerHost}/BackupPC_Admin'";
+     }
+ }
+ 
