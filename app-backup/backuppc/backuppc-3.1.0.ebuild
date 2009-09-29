@@ -9,7 +9,7 @@ inherit eutils webapp
 MY_P="BackupPC-${PV}"
 
 DESCRIPTION="A high-performance system for backing up computers to a server's disk."
-HOMEPAGE="http://backuppc.sourceforge.net"
+HOMEPAGE="http://backuppc.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
