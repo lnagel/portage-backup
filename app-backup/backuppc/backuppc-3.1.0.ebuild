@@ -37,7 +37,10 @@ WEBAPP_MANUAL_SLOT="yes"
 SLOT="0"
 
 S=${WORKDIR}/${MY_P}
+
+CONFDIR="/etc/BackupPC"
 DATADIR="/var/lib/backuppc"
+LOGDIR="/var/log/BackupPC"
 
 pkg_setup() {
 	webapp_pkg_setup
@@ -68,10 +71,10 @@ src_install() {
 
 	## For upgrading, we need to copy in the current config file
 	## Currently disabled since the configure.pl script is broken
-	#if [[ -f "/etc/BackupPC/config.pl" ]]; then
-	#	einfo "Feeding in the current config file /etc/BackupPC/config.pl"
+	#if [[ -f "${CONFDIR}/config.pl" ]]; then
+	#	einfo "Feeding in the current config file ${CONFDIR}/config.pl"
 	#	einfo " as ${WORKDIR}/config.pl"
-	#	cp "/etc/BackupPC/config.pl" "${WORKDIR}/config.pl"
+	#	cp "${CONFDIR}/config.pl" "${WORKDIR}/config.pl"
 	#	myconf="${myconf} --config-path ${WORKDIR}/config.pl"
 	#fi
 
@@ -89,7 +92,7 @@ src_install() {
 		--bin-path hostname=$(type -p hostname) \
 		--bin-path gzip=$(type -p gzip) \
 		--bin-path bzip2=$(type -p bzip2) \
-		--config-dir /etc/BackupPC \
+		--config-dir ${CONFDIR} \
 		--install-dir /usr \
 		--data-dir ${DATADIR} \
 		--hostname $(hostname) \
@@ -108,9 +111,9 @@ src_install() {
 
 	doman backuppc.8
 
-	keepdir /etc/BackupPC
+	keepdir ${CONFDIR}
 	keepdir ${DATADIR}/{trash,pool,pc,cpool}
-	keepdir /var/log/BackupPC
+	keepdir ${LOGDIR}
 
 	newinitd "${S}"/init.d/gentoo-backuppc backuppc
 	newconfd "${S}"/init.d/gentoo-backuppc.conf backuppc
@@ -120,10 +123,10 @@ src_install() {
 	# Patch together a httpd.conf
 	cp "${FILESDIR}/httpd.conf" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
-	sed -i -e "s+AUTHFILE+/etc/BackupPC/users.htpasswd+g" "${WORKDIR}/httpd.conf"
+	sed -i -e "s+AUTHFILE+${CONFDIR}/users.htpasswd+g" "${WORKDIR}/httpd.conf"
 
 	# Generate a new password if there's no auth file
-	if [[ ! -f "${ROOT}etc/BackupPC/users.htpasswd" ]]; then
+	if [[ ! -f "${CONFDIR}/users.htpasswd" ]]; then
 		adminuser="backuppc"
 		adminpass=$( makepasswd --chars=12 )
 		htpasswd -bc "${WORKDIR}/users.htpasswd" $adminuser $adminpass
@@ -140,7 +143,7 @@ src_install() {
 
 	# Install config files
 	insopts -m 0644
-	insinto /etc/BackupPC
+	insinto ${CONFDIR}
 	doins "${WORKDIR}/httpd.conf"
 
 	if [[ -f "${WORKDIR}/users.htpasswd" ]]; then
@@ -151,15 +154,15 @@ src_install() {
 
 	webapp_src_install || die "webapp_src_install"
 
-	#cd ${D}/etc/BackupPC
+	#cd ${D}${CONFDIR}
 	#ebegin "Patching config.pl for sane defaults"
 	#	patch -p0 < ${WORKDIR}/gentoo/postpatch/config.pl.diff
 	#eend $?
 
 	# Make sure that the ownership is correct
-	chown -R backuppc:backuppc "${D}/etc/BackupPC"
+	chown -R backuppc:backuppc "${D}${CONFDIR}"
 	chown -R backuppc:backuppc "${D}${DATADIR}"
-	chown -R backuppc:backuppc "${D}/var/log/BackupPC"
+	chown -R backuppc:backuppc "${D}${LOGDIR}"
 }
 
 pkg_postinst() {
