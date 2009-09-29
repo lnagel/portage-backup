@@ -57,7 +57,7 @@ src_unpack() {
 }
 
 src_test() {
-	einfo "Can not test"
+	true
 }
 
 src_install() {
