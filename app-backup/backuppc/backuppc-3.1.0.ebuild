@@ -144,6 +144,7 @@ src_install() {
 	# This happens if you install apache with USE="threads"
 	if [[ -f "${moduledir}/mod_cgid.so" ]]; then
 		sed -i -e "s+mod_cgi+mod_cgid+g" "${WORKDIR}/httpd.conf"
+		sed -i -e "s+cgi_module+cgid_module+g" "${WORKDIR}/httpd.conf"
 	fi
 
 	# Generate a new password if there's no auth file
