@@ -167,15 +167,18 @@ pkg_postinst() {
 	# This is disabled since BackupPC doesn't need it
 	# webapp_pkg_postinst 
 
-	elog "Please read the documentation"
-	elog "you can start the server by typing:"
-	elog "/etc/init.d/backuppc start && /etc/init.d/apache2-backuppc start"
-	elog "afterwards you will be able to reach the web-frontend under the following address:"
-	elog "http://your-servers-ip-address/BackupPC_Admin"
+	elog "Installation finished, now may now start using BackupPC."
 	elog ""
-	elog "You also might want to add these scripts to your default runlevel:"
-	elog "# rc-update add backuppc default"
-	elog "# rc-update add apache2-backuppc default"
+	elog "- Read the documentation in /usr/share/doc/${MY_P}/BackupPC.html"
+	elog "  Please pay special attention to the security section."
+	elog ""
+	elog "- You can launch backuppc and it's apache web interface by running:"
+	elog "  # /etc/init.d/backuppc start"
+	elog "  # /etc/init.d/apache2-backuppc start"
+	elog ""
+	elog "- You also might want to add these scripts to your default runlevel:"
+	elog "  # rc-update add backuppc default"
+	elog "  # rc-update add apache2-backuppc default"
 
 	# Generate a new password if there's no auth file
 	if [[ ! -f "${CONFDIR}/users.htpasswd" ]]; then
@@ -184,9 +187,9 @@ pkg_postinst() {
 		htpasswd -bc "${CONFDIR}/users.htpasswd" $adminuser $adminpass
 
 		elog ""
-		elog "Created admin user $adminuser with password $adminpass"
-		elog "To add new users, run: "
-		elog "# htpasswd ${CONFDIR}/users.htpasswd newUser"
+		elog "- Created admin user $adminuser with password $adminpass"
+		elog "  To add new users, run: "
+		elog "  # htpasswd ${CONFDIR}/users.htpasswd newUser"
 	fi
 
 	if [[ -d "/etc/backuppc" ]]; then
