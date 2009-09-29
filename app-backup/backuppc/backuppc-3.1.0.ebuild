@@ -123,7 +123,7 @@ src_install() {
 	
 	ebegin "Setting up an apache instance for backuppc"
 
-	# Patch together a httpd.conf
+	cp "${FILESDIR}/apache2-backuppc."{conf,init} "${WORKDIR}/"
 	cp "${FILESDIR}/httpd.conf" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+AUTHFILE+${CONFDIR}/users.htpasswd+g" "${WORKDIR}/httpd.conf"
@@ -133,7 +133,9 @@ src_install() {
 	# In this case we just patch our config file appropriately.
 	if [[ ! -d "/usr/lib/apache2" ]]; then 
 		if [[ -d "/usr/lib64/apache2" ]]; then
-			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/httpd.conf"
+			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" \
+				"${WORKDIR}/httpd.conf" \
+				"${WORKDIR}/apache2-backuppc.conf"
 		fi
 	fi
 
@@ -146,11 +148,11 @@ src_install() {
 
 	# Install conf.d/init.d files
 	if [ -e /etc/init.d/apache2 ]; then
-		newconfd "${FILESDIR}/apache2-backuppc.conf" apache2-backuppc
+		newconfd "${WORKDIR}/apache2-backuppc.conf" apache2-backuppc
 		newinitd /etc/init.d/apache2 apache2-backuppc
 	else
-		newconfd "${FILESDIR}/apache2-backuppc.conf" apache2-backuppc
-		newinitd "${FILESDIR}/apache2-backuppc.init" apache2-backuppc
+		newconfd "${WORKDIR}/apache2-backuppc.conf" apache2-backuppc
+		newinitd "${WORKDIR}/apache2-backuppc.init" apache2-backuppc
 	fi
 
 	# Install config files
