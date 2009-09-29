@@ -111,7 +111,10 @@ src_install() {
 
 	doman backuppc.8
 
+	dodir ${CONFDIR}/pc
+
 	keepdir ${CONFDIR}
+	keepdir ${CONFDIR}/pc
 	keepdir ${DATADIR}/{trash,pool,pc,cpool}
 	keepdir ${LOGDIR}
 
