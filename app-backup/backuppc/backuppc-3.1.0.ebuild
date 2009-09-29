@@ -192,4 +192,9 @@ pkg_postinst() {
 		elog "# htpasswd ${CONFDIR}/users.htpasswd newUser"
 		elog ""
 	fi
+
+	if [[ -d "/etc/backuppc" ]]; then
+		ewarn "Detected old config directory in /etc/backuppc"
+		ewarn "Please migrate relevant config files to ${CONFDIR} before starting backuppc"
+	fi
 }
