@@ -127,6 +127,8 @@ src_install() {
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+AUTHFILE+${CONFDIR}/users.htpasswd+g" "${WORKDIR}/httpd.conf"
 
+	moduledir="/usr/lib/apache2/modules"
+
 	# Check if the Apache ServerRoot is real.
 	# This is sometimes broken on older amd64 systems.
 	# In this case we just patch our config file appropriately.
@@ -134,7 +136,14 @@ src_install() {
 		if [[ -d "/usr/lib64/apache2" ]]; then
 			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/httpd.conf"
 			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/apache2-backuppc.conf"
+			moduledir="/usr/lib64/apache2/modules"
 		fi
+	fi
+
+	# Check if we're using mod_cgid instead of mod_cgi
+	# This happens if you install apache with USE="threads"
+	if [[ -f "${moduledir}/mod_cgid.so" ]]; then
+		sed -i -e "s+mod_cgi+mod_cgid+g" "${WORKDIR}/httpd.conf"
 	fi
 
 	# Generate a new password if there's no auth file
