@@ -8,7 +8,7 @@ inherit eutils webapp
 
 MY_P="BackupPC-${PV}"
 
-DESCRIPTION="A high-performancee system for backing up computers to a server's disk."
+DESCRIPTION="A high-performance system for backing up computers to a server's disk."
 HOMEPAGE="http://backuppc.sourceforge.net"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
@@ -149,7 +149,7 @@ src_install() {
 		sed -i -e "s+cgi_module+cgid_module+g" "${WORKDIR}/httpd.conf"
 	fi
 
-	# Install conf.d/init.d files
+	# Install conf.d/init.d files for apache2-backuppc
 	if [ -e /etc/init.d/apache2 ]; then
 		newconfd "${WORKDIR}/apache2-backuppc.conf" apache2-backuppc
 		newinitd /etc/init.d/apache2 apache2-backuppc
@@ -158,7 +158,6 @@ src_install() {
 		newinitd "${WORKDIR}/apache2-backuppc.init" apache2-backuppc
 	fi
 
-	# Install httpd.conf & possibly a fresh htpasswd file
 	insopts -m 0644
 	insinto ${CONFDIR}
 	doins "${WORKDIR}/httpd.conf"
