@@ -1,0 +1,7 @@
+*backuppc-3.1.0 (29 Sep 2009)
+
+29 Sep 2009; Lenno Nagel <lenno@nagel.ee> +backuppc-3.1.0.ebuild:
+	Wrote a new ebuild for 3.1.0 based on the old versions.
+	I really hope this is much cleaner and more reliable than the
+	other ebuilds that have been floating around for BackupPC.
+	Hopefully this will make it to the main portage tree one day :)
