@@ -51,8 +51,7 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	#sed -i -e "1s_/bin/perl_/usr/bin/perl_"  configure.pl
-	patch -p0 < "${FILESDIR}/fix-configure.pl.patch"
+	epatch "${FILESDIR}/fix-configure.pl.patch"
 }
 
 src_test() {
@@ -154,7 +153,7 @@ src_install() {
 		newinitd "${WORKDIR}/apache2-backuppc.init" apache2-backuppc
 	fi
 
-	# Install config files
+	# Install httpd.conf & possibly a fresh htpasswd file
 	insopts -m 0644
 	insinto ${CONFDIR}
 	doins "${WORKDIR}/httpd.conf"
