@@ -1,5 +1,5 @@
---- config.pl.orig	2009-09-29 12:27:00.000000000 +0300
-+++ config.pl	2009-09-29 12:29:18.000000000 +0300
+--- conf/config.pl.orig	2009-09-29 12:27:00.000000000 +0300
++++ conf/config.pl	2009-09-29 12:29:18.000000000 +0300
 @@ -1920,7 +1920,7 @@
  #    --> administrative users are only craig and celia'.
  #

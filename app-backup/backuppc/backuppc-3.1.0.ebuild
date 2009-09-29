@@ -52,6 +52,7 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 	epatch "${FILESDIR}/fix-configure.pl.patch"
+	epatch "${FILESDIR}/config.pl-defaults.patch"
 }
 
 src_test() {
@@ -176,10 +177,10 @@ src_install() {
 
 	webapp_src_install || die "webapp_src_install"
 
-	ebegin "Patching config.pl for sane defaults"
-		cd ${D}${CONFDIR}
-		patch -p0 < "${FILESDIR}/config.pl-defaults.patch"
-	eend $?
+	#ebegin "Patching config.pl for sane defaults"
+	#	cd ${D}${CONFDIR}
+	#	patch -p0 < "${FILESDIR}/config.pl-defaults.patch"
+	#eend $?
 
 	# Make sure that the ownership is correct
 	chown -R backuppc:backuppc "${D}${CONFDIR}"
