@@ -1,5 +1,5 @@
 --- conf/config.pl.orig	2009-09-29 12:27:00.000000000 +0300
-+++ conf/config.pl	2009-09-29 22:15:24.000000000 +0300
++++ conf/config.pl	2009-09-29 22:17:53.000000000 +0300
 @@ -1270,6 +1270,7 @@
              '--times',
              '--block-size=2048',
@@ -25,3 +25,12 @@
  
  #
  # URL of the BackupPC_Admin CGI script.  Used for email messages.
+@@ -1967,7 +1969,7 @@
+ # dates (MM/DD), a value of 2 uses full YYYY-MM-DD format, and zero
+ # for international dates (DD/MM).
+ #
+-$Conf{CgiDateFormatMMDD} = 1;
++$Conf{CgiDateFormatMMDD} = 2;
+ 
+ #
+ # If set, the complete list of hosts appears in the left navigation
