@@ -128,6 +128,15 @@ src_install() {
 	sed -i -e "s+HTDOCSDIR+${MY_HTDOCSDIR}+g" "${WORKDIR}/httpd.conf"
 	sed -i -e "s+AUTHFILE+${CONFDIR}/users.htpasswd+g" "${WORKDIR}/httpd.conf"
 
+	# Check if the Apache ServerRoot is real.
+	# This is sometimes broken on older amd64 systems.
+	# In this case we just patch our config file appropriately.
+	if [[ ! -d "/usr/lib/apache2" ]]; then 
+		if [[ -d "/usr/lib64/apache2" ]]; then
+			sed -i -e "s+/usr/lib/apache2+/usr/lib64/apache2+g" "${WORKDIR}/httpd.conf"
+		fi
+	fi
+
 	# Generate a new password if there's no auth file
 	if [[ ! -f "${CONFDIR}/users.htpasswd" ]]; then
 		adminuser="backuppc"
