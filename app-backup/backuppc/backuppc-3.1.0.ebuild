@@ -107,9 +107,11 @@ src_install() {
 	keepdir ${DATADIR}/{trash,pool,pc,cpool}
 	keepdir ${LOGDIR}
 
+	ebegin "Setting up init.d/conf.d scripts"
 	newinitd "${S}"/init.d/gentoo-backuppc backuppc
 	newconfd "${S}"/init.d/gentoo-backuppc.conf backuppc
-	
+	eend 0
+
 	ebegin "Setting up an apache instance for backuppc"
 
 	cp "${FILESDIR}/apache2-backuppc."{conf,init} "${WORKDIR}/"
@@ -151,10 +153,6 @@ src_install() {
 	insinto ${CONFDIR}
 	doins "${WORKDIR}/httpd.conf"
 
-	if [[ -f "${WORKDIR}/users.htpasswd" ]]; then
-		doins "${WORKDIR}/users.htpasswd"
-	fi
-
 	eend $?
 
 	webapp_src_install || die "webapp_src_install"
@@ -169,17 +167,15 @@ pkg_postinst() {
 	# This is disabled since BackupPC doesn't need it
 	# webapp_pkg_postinst 
 
-	elog ""
 	elog "Please read the documentation"
 	elog "you can start the server by typing:"
 	elog "/etc/init.d/backuppc start && /etc/init.d/apache2-backuppc start"
 	elog "afterwards you will be able to reach the web-frontend under the following address:"
-	elog "https://your-servers-ip-address/BackupPC_Admin"
+	elog "http://your-servers-ip-address/BackupPC_Admin"
 	elog ""
 	elog "You also might want to add these scripts to your default runlevel:"
 	elog "# rc-update add backuppc default"
 	elog "# rc-update add apache2-backuppc default"
-	elog ""
 
 	# Generate a new password if there's no auth file
 	if [[ ! -f "${CONFDIR}/users.htpasswd" ]]; then
@@ -187,13 +183,14 @@ pkg_postinst() {
 		adminpass=$( makepasswd --chars=12 )
 		htpasswd -bc "${CONFDIR}/users.htpasswd" $adminuser $adminpass
 
+		elog ""
 		elog "Created admin user $adminuser with password $adminpass"
 		elog "To add new users, run: "
 		elog "# htpasswd ${CONFDIR}/users.htpasswd newUser"
-		elog ""
 	fi
 
 	if [[ -d "/etc/backuppc" ]]; then
+		ewarn ""
 		ewarn "Detected old config directory in /etc/backuppc"
 		ewarn "Please migrate relevant config files to ${CONFDIR} before starting backuppc"
 	fi
