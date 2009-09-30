@@ -1,0 +1,20 @@
+--- conf/config.pl.formatted	2009-09-30 14:30:54.035496661 +0300
++++ conf/config.pl	2009-09-30 14:30:54.035496661 +0300
+@@ -1917,7 +1917,7 @@
+ #    --> administrative users are only craig and celia'.
+ #
+ $Conf{CgiAdminUserGroup} = '';
+-$Conf{CgiAdminUsers}     = '';
++$Conf{CgiAdminUsers}     = 'backuppc';
+ 
+ #
+ # URL of the BackupPC_Admin CGI script.  Used for email messages.
+@@ -1964,7 +1964,7 @@
+ # dates (MM/DD), a value of 2 uses full YYYY-MM-DD format, and zero
+ # for international dates (DD/MM).
+ #
+-$Conf{CgiDateFormatMMDD} = 1;
++$Conf{CgiDateFormatMMDD} = 2;
+ 
+ #
+ # If set, the complete list of hosts appears in the left navigation

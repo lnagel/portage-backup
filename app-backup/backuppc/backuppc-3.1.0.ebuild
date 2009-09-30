@@ -56,8 +56,9 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/fix-configure.pl.patch"
-	epatch "${FILESDIR}/config.pl-defaults.patch"
+	epatch "${FILESDIR}/01-fix-configure.pl.patch"
+	epatch "${FILESDIR}/02-fix-config.pl-formatting.patch"
+	epatch "${FILESDIR}/03-reasonable-config.pl-defaults.patch"
 }
 
 src_test() {
