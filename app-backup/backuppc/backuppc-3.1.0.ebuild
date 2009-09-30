@@ -114,6 +114,7 @@ src_install() {
 
 	# Place the documentation in the correct location
 	dodoc "${D}/usr/doc/BackupPC.html"
+	dodoc "${D}/usr/doc/BackupPC.pod"
 	rm -rf "${D}/usr/doc"
 
 	eend 0
