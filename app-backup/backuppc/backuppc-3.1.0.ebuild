@@ -59,6 +59,10 @@ src_prepare() {
 	epatch "${FILESDIR}/01-fix-configure.pl.patch"
 	epatch "${FILESDIR}/02-fix-config.pl-formatting.patch"
 	epatch "${FILESDIR}/03-reasonable-config.pl-defaults.patch"
+
+	# Fix the documentation location in the CGI interface
+	epatch "${FILESDIR}/04-add-docdir-marker.patch"
+	sed -i "s+__DOCDIR__+/usr/share/doc/${P}+" "lib/BackupPC/CGI/View.pm"
 }
 
 src_test() {
@@ -183,7 +187,7 @@ pkg_postinst() {
 
 	elog "Installation finished, now may now start using BackupPC."
 	elog ""
-	elog "- Read the documentation in /usr/share/doc/backuppc-${PV}/BackupPC.html"
+	elog "- Read the documentation in /usr/share/doc/${P}/BackupPC.html"
 	elog "  Please pay special attention to the security section."
 	elog ""
 	elog "- You can launch backuppc and it's apache web interface by running:"
