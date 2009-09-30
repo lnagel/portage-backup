@@ -1,5 +1,5 @@
 --- conf/config.pl.formatted	2009-09-30 14:30:54.035496661 +0300
-+++ conf/config.pl	2009-09-30 14:30:54.035496661 +0300
++++ conf/config.pl	2009-10-01 01:46:40.409574184 +0300
 @@ -1917,7 +1917,7 @@
  #    --> administrative users are only craig and celia'.
  #
@@ -18,3 +18,12 @@
  
  #
  # If set, the complete list of hosts appears in the left navigation
+@@ -2138,7 +2138,7 @@
+   'EMailNotifyMinDays' => '1',
+   'RsyncdAuthRequired' => '1',
+   'SmbClientRestoreCmd' => '0',
+-  'ClientNameAlias' => '1',
++  'ClientNameAlias' => '0',
+   'DumpPostShareCmd' => '0',
+   'IncrLevels' => '1',
+   'EMailOutlookBackupMesg' => '1',
