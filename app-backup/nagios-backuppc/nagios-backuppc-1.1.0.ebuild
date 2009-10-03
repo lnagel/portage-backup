@@ -62,8 +62,8 @@ pkg_postinst() {
 	elog "# gpasswd -a backuppc nagios"
 	elog ""
 	elog "Add to /etc/nagios/nrpe.cfg:"
-	elog "  command[check_backuppc]=/usr/bin/sudo /bin/su -c /usr/lib/nagios/plugins/check_backuppc backuppc"
+	elog "  command[check_backuppc]=/usr/bin/sudo /bin/su -c $PLUGINSDIR/check_backuppc backuppc"
 	elog ""
 	elog "Add to sudoers using visudo:"
-	elog "  nagios ALL=(ALL) NOPASSWD: /bin/su -c /usr/lib/nagios/plugins/check_backuppc backuppc"
+	elog "  nagios ALL=(ALL) NOPASSWD: /bin/su -c $PLUGINSDIR/check_backuppc backuppc"
 }
