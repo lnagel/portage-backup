@@ -33,8 +33,10 @@ src_unpack() {
 }
 
 src_prepare() {
-	if [[ -d "/usr/lib64/nagios/plugins" ]]; then
-		PLUGINSDIR="/usr/lib64/nagios/plugins"
+	if [[ ! -d "$PLUGINSDIR" ]]; then
+		if [[ -d "/usr/lib64/nagios/plugins" ]]; then
+			PLUGINSDIR="/usr/lib64/nagios/plugins"
+		fi
 	fi
 
 	sed -i "s+NAGIOS_LIB+$PLUGINSDIR+" check_backuppc
