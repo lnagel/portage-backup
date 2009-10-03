@@ -47,7 +47,18 @@ src_test() {
 src_install() {
 	doman check_backuppc.8
 
-	insopts -m 0755 -g nagios
+	insopts -m 0750 -g nagios
 	insinto /usr/lib/nagios/plugins
 	doins check_backuppc
+}
+
+pkg_postinst() {
+	elog "You should probaby add backuppc to the group nagios:"
+	elog "# gpasswd -a backuppc nagios"
+	elog ""
+	elog "Add to /etc/nagios/nrpe.cfg:"
+	elog "  command[check_backuppc]=/usr/bin/sudo /bin/su -c /usr/lib/nagios/plugins/check_backuppc backuppc"
+	elog ""
+	elog "Add to sudoers using visudo:"
+	elog "  nagios ALL=(ALL) NOPASSWD: /bin/su -c /usr/lib/nagios/plugins/check_backuppc backuppc"
 }
