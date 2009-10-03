@@ -20,7 +20,6 @@ IUSE=""
 DEPEND="dev-lang/perl"
 RDEPEND="${DEPEND}
 	app-backup/backuppc
-	net-analyzer/nagios-core
 	net-analyzer/nagios-plugins"
 
 SLOT="0"
