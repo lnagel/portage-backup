@@ -33,7 +33,7 @@ src_unpack() {
 
 src_prepare() {
 	sed -i "s+NAGIOS_LIB+/usr/lib/nagios/plugins+" check_backuppc
-	sed -i "s+BACKUPPC_LIB+/usr/lib/BackupPC+" check_backuppc
+	sed -i "s+BACKUPPC_LIB+/usr/lib+" check_backuppc
 }
 
 src_compile() {
@@ -47,7 +47,7 @@ src_test() {
 src_install() {
 	doman check_backuppc.8
 
-	insopts -m 0750 -g nagios
+	insopts -m 0755 -g nagios
 	insinto /usr/lib/nagios/plugins
 	doins check_backuppc
 }
