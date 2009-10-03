@@ -25,6 +25,7 @@ RDEPEND="${DEPEND}
 SLOT="0"
 
 S=${WORKDIR}/${MY_P}
+PLUGINSDIR="/usr/lib/nagios/plugins"
 
 src_unpack() {
 	unpack ${A}
@@ -33,11 +34,10 @@ src_unpack() {
 
 src_prepare() {
 	if [[ -d "/usr/lib64/nagios/plugins" ]]; then
-		sed -i "s+NAGIOS_LIB+/usr/lib64/nagios/plugins+" check_backuppc
-	else
-		sed -i "s+NAGIOS_LIB+/usr/lib/nagios/plugins+" check_backuppc
+		PLUGINSDIR="/usr/lib64/nagios/plugins"
 	fi
 
+	sed -i "s+NAGIOS_LIB+$PLUGINSDIR+" check_backuppc
 	sed -i "s+BACKUPPC_LIB+/usr/lib+" check_backuppc
 }
 
@@ -53,7 +53,7 @@ src_install() {
 	doman check_backuppc.8
 
 	insopts -m 0750 -g nagios
-	insinto /usr/lib/nagios/plugins
+	insinto "$PLUGINSDIR"
 	doins check_backuppc
 }
 
