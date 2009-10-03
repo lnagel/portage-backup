@@ -36,6 +36,10 @@ src_prepare() {
 	sed -i "s+BACKUPPC_LIB+/usr/lib/BackupPC+" check_backuppc
 }
 
+src_compile() {
+	true
+}
+
 src_test() {
 	true
 }
