@@ -32,7 +32,12 @@ src_unpack() {
 }
 
 src_prepare() {
-	sed -i "s+NAGIOS_LIB+/usr/lib/nagios/plugins+" check_backuppc
+	if [[ -d "/usr/lib64/nagios/plugins" ]]; then
+		sed -i "s+NAGIOS_LIB+/usr/lib64/nagios/plugins+" check_backuppc
+	else
+		sed -i "s+NAGIOS_LIB+/usr/lib/nagios/plugins+" check_backuppc
+	fi
+
 	sed -i "s+BACKUPPC_LIB+/usr/lib+" check_backuppc
 }
 
