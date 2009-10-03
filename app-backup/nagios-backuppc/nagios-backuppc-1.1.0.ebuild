@@ -47,6 +47,7 @@ src_test() {
 src_install() {
 	doman check_backuppc.8
 
+	insopts -m 0750 -g nagios
 	insinto /usr/lib/nagios/plugins
 	doins check_backuppc
 }
