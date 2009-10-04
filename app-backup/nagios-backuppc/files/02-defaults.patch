@@ -1,5 +1,5 @@
 --- check_backuppc.fixed	2009-10-04 17:33:24.548302540 +0300
-+++ check_backuppc	2009-10-04 17:33:42.328325241 +0300
++++ check_backuppc	2009-10-04 17:37:43.415352245 +0300
 @@ -42,8 +42,8 @@
  use BackupPC::Lib;
  
@@ -7,7 +7,7 @@
 -my $warnLevel = 0;
 -my $daysOld = 7;
 +my $warnLevel = 4;
-+my $daysOld = 10;
++my $daysOld = 30;
  my $verbose = 0;
  my $opt_V = 0;
  my $opt_h = 0;
