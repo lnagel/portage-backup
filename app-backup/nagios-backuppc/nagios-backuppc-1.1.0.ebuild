@@ -33,6 +33,8 @@ src_unpack() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/01-defaults.patch"
+
 	if [[ ! -d "$PLUGINSDIR" ]]; then
 		if [[ -d "/usr/lib64/nagios/plugins" ]]; then
 			PLUGINSDIR="/usr/lib64/nagios/plugins"

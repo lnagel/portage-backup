@@ -1,0 +1,13 @@
+--- check_backuppc.orig	2009-10-04 17:07:54.775317682 +0300
++++ check_backuppc	2009-10-04 17:08:45.695328216 +0300
+@@ -42,8 +42,8 @@
+ use BackupPC::Lib;
+ 
+ my $version = '1.1.0';
+-my $warnLevel = 0;
+-my $daysOld = 7;
++my $warnLevel = 4;
++my $daysOld = 10;
+ my $verbose = 0;
+ my $opt_V = 0;
+ my $opt_h = 0;
