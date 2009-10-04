@@ -1,6 +1,22 @@
 --- conf/config.pl.formatted	2009-09-30 14:30:54.035496661 +0300
-+++ conf/config.pl	2009-10-01 01:46:40.409574184 +0300
-@@ -1917,7 +1917,7 @@
++++ conf/config.pl	2009-10-04 14:14:30.235570477 +0300
+@@ -1297,6 +1297,7 @@
+   '--times',
+   '--block-size=2048',
+   '--recursive',
++  '--checksum-seed=32761',
+   '--specials'
+ ];
+ 
+@@ -1321,6 +1322,7 @@
+   '--relative',
+   '--ignore-times',
+   '--recursive',
++  '--checksum-seed=32761',
+   '--specials'
+ ];
+ 
+@@ -1917,7 +1919,7 @@
  #    --> administrative users are only craig and celia'.
  #
  $Conf{CgiAdminUserGroup} = '';
@@ -9,7 +25,7 @@
  
  #
  # URL of the BackupPC_Admin CGI script.  Used for email messages.
-@@ -1964,7 +1964,7 @@
+@@ -1964,7 +1966,7 @@
  # dates (MM/DD), a value of 2 uses full YYYY-MM-DD format, and zero
  # for international dates (DD/MM).
  #
@@ -18,7 +34,7 @@
  
  #
  # If set, the complete list of hosts appears in the left navigation
-@@ -2138,7 +2138,7 @@
+@@ -2138,7 +2140,7 @@
    'EMailNotifyMinDays' => '1',
    'RsyncdAuthRequired' => '1',
    'SmbClientRestoreCmd' => '0',
