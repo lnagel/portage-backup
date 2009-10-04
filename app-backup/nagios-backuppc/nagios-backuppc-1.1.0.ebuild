@@ -33,7 +33,8 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/01-defaults.patch"
+	epatch "${FILESDIR}/01-fix-lastGoodBackupTime.patch"
+	epatch "${FILESDIR}/02-defaults.patch"
 
 	if [[ ! -d "$PLUGINSDIR" ]]; then
 		if [[ -d "/usr/lib64/nagios/plugins" ]]; then

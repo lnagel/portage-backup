@@ -1,0 +1,11 @@
+--- check_backuppc.orig	2009-10-04 17:07:54.775317682 +0300
++++ check_backuppc	2009-10-04 17:32:43.656317343 +0300
+@@ -186,7 +186,7 @@
+ 		}
+ 		push @badHost, $host;
+ 		# Check bad host ages
+-		$Status{$host}{'lastGoodBackupTime'} = $Status{$host}{'startTime'} if (not $Status{$host}{'lastGoodBackupTime'});
++		$Status{$host}{'lastGoodBackupTime'} = 0 if (not $Status{$host}{'lastGoodBackupTime'});
+ 		if (difftime(time(), $Status{$host}{'lastGoodBackupTime'}) > ($daysOld * 3600 * 24))
+ 		{
+ 			push @tooOld, $host;
