@@ -63,6 +63,8 @@ src_prepare() {
 	# Fix the documentation location in the CGI interface
 	epatch "${FILESDIR}/04-add-docdir-marker.patch"
 	sed -i "s+__DOCDIR__+/usr/share/doc/${P}+" "lib/BackupPC/CGI/View.pm"
+
+	epatch "${FILESDIR}/05-nicelevel.patch"
 }
 
 src_test() {
