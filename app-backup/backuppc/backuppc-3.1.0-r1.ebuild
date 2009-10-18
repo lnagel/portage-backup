@@ -190,7 +190,7 @@ pkg_postinst() {
 
 	elog "Installation finished, now may now start using BackupPC."
 	elog ""
-	elog "- Read the documentation in /usr/share/doc/${P}/BackupPC.html"
+	elog "- Read the documentation in /usr/share/doc/${PF}/BackupPC.html"
 	elog "  Please pay special attention to the security section."
 	elog ""
 	elog "- You can launch backuppc and it's apache web interface by running:"
