@@ -1,5 +1,8 @@
 *backuppc-3.1.0 (29 Sep 2009)
 
+16 Nov 2009; Lenno Nagel <lenno@nagel.ee> +backuppc-3.1.0-r2.ebuild:
+	Added a new patch for fixing the pidfile dir (/var/log -> /var/run)
+
 29 Sep 2009; Lenno Nagel <lenno@nagel.ee> +backuppc-3.1.0.ebuild:
 	Wrote a new ebuild for 3.1.0 based on the old versions.
 	I really hope this is much cleaner and more reliable than the
