@@ -1,9 +1,0 @@
---- init.d/src/gentoo-backuppc.conf.orig	2009-10-18 00:14:52.513347638 +0300
-+++ init.d/src/gentoo-backuppc.conf	2009-11-16 17:54:59.021348107 +0200
-@@ -1,5 +1,5 @@
- CONF_FILE=__CONFDIR__/config.pl
- USER=__BACKUPPCUSER__
--PID_FILE=__LOGDIR__/BackupPC.pid
-+PID_FILE=/var/run/BackupPC.pid
- EXEC=__INSTALLDIR__/bin/BackupPC
- EXEC_OPTIONS=-d
