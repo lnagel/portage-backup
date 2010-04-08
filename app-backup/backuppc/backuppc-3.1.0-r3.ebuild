@@ -47,7 +47,7 @@ LOGDIR="/var/log/BackupPC"
 pkg_setup() {
 	webapp_pkg_setup
 	enewgroup backuppc
-	enewuser backuppc -1 -1 /dev/null backuppc
+	enewuser backuppc -1 -1 /var/lib/backuppc backuppc
 }
 
 src_unpack() {
