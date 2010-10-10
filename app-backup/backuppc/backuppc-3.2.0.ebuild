@@ -23,6 +23,7 @@ DEPEND="dev-lang/perl
 RDEPEND="${DEPEND}
 	perl-core/IO-Compress
 	dev-perl/Archive-Zip
+	dev-perl/libwww-perl
 	>=app-arch/tar-1.13.20
 	app-arch/par2cmdline
 	app-arch/gzip
