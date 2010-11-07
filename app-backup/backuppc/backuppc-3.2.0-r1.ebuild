@@ -197,14 +197,14 @@ pkg_postinst() {
 	elog "- You can launch backuppc and it's apache web interface by running:"
 	elog "  # /etc/init.d/backuppc start"
 	elog "  # /etc/init.d/apache2-backuppc start"
-	
+
 	if [[ ! -e /etc/runlevels/default/backuppc ]]; then
 		elog ""
 		elog "- You also might want to add these scripts to your default runlevel:"
 		elog "  # rc-update add backuppc default"
 		elog "  # rc-update add apache2-backuppc default"
 	fi
-	
+
 	# Generate a new password if there's no auth file
 	if [[ ! -f "${CONFDIR}/users.htpasswd" ]]; then
 		adminuser="backuppc"
