@@ -56,15 +56,15 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/01-fix-configure.pl.patch"
-	epatch "${FILESDIR}/02-fix-config.pl-formatting.patch"
-	epatch "${FILESDIR}/03-reasonable-config.pl-defaults.patch"
+	epatch "${FILESDIR}/${PV}/01-fix-configure.pl.patch"
+	epatch "${FILESDIR}/${PV}/02-fix-config.pl-formatting.patch"
+	epatch "${FILESDIR}/${PV}/03-reasonable-config.pl-defaults.patch"
 
 	# Fix the documentation location in the CGI interface
-	epatch "${FILESDIR}/04-add-docdir-marker.patch"
+	epatch "${FILESDIR}/${PV}/04-add-docdir-marker.patch"
 	sed -i "s+__DOCDIR__+/usr/share/doc/${PF}+" "lib/BackupPC/CGI/View.pm"
 
-	epatch "${FILESDIR}/05-nicelevel.patch"
+	epatch "${FILESDIR}/${PV}/05-nicelevel.patch"
 }
 
 src_test() {
