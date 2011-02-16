@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="samba"
+IUSE="rss samba"
 
 DEPEND="dev-lang/perl
 	app-admin/apache-tools
@@ -47,7 +47,7 @@ LOGDIR="/var/log/BackupPC"
 pkg_setup() {
 	webapp_pkg_setup
 	enewgroup backuppc
-	enewuser backuppc -1 -1 /var/lib/backuppc backuppc
+	enewuser backuppc -1 /bin/bash /var/lib/backuppc backuppc
 }
 
 src_unpack() {
