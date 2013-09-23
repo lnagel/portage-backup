@@ -83,7 +83,7 @@ src_install() {
 		myconf="${myconf} --bin-path nmblookup=$(type -p nmblookup)"
 	fi
 
-	./configure.pl \
+	/usr/bin/env perl ./configure.pl \
 		--batch \
 		--bin-path perl=$(type -p perl) \
 		--bin-path tar=$(type -p tar) \
