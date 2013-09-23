@@ -223,7 +223,4 @@ pkg_postinst() {
 		ewarn "Detected old config directory in /etc/backuppc"
 		ewarn "Please migrate relevant config files to ${CONFDIR} before starting backuppc"
 	fi
-	elog "Warning: The default path changed from /var/lib/backuppc to /var/lib/BackupPC"
-	elog "To continue using the old path the config files need to contain something like this:"
-	elog "\$Conf{TopDir} = '/var/lib/backuppc/';"
 }
