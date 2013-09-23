@@ -1,5 +1,12 @@
 # ChangeLog for app-backup/backuppc
 
+  23 Sep 2013; Lenno Nagel <lenno@nagel.ee> ChangeLog:
+  +backuppc-3.3.0.ebuild,
+  +files/3.3.0/01-fix-configure.pl.patch,
+  +files/3.3.0/02-fix-config.pl-formatting.patch,
+  +files/3.3.0/03-reasonable-config.pl-defaults.patch:
+  BackupPC 3.3.0; Adding new ebuilds & patches.
+
 *backuppc-3.2.0 (03 Sep 2010)
 
   03 Sep 2010; Lenno Nagel <lenno@nagel.ee>
