@@ -57,9 +57,9 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/3.2.0/01-fix-configure.pl.patch"
-	epatch "${FILESDIR}/3.2.0/02-fix-config.pl-formatting.patch"
-	epatch "${FILESDIR}/3.2.0/03-reasonable-config.pl-defaults.patch"
+	epatch "${FILESDIR}/3.3.0/01-fix-configure.pl.patch"
+	epatch "${FILESDIR}/3.3.0/02-fix-config.pl-formatting.patch"
+	epatch "${FILESDIR}/3.3.0/03-reasonable-config.pl-defaults.patch"
 
 	# Fix the documentation location in the CGI interface
 	epatch "${FILESDIR}/3.2.0/04-add-docdir-marker.patch"
